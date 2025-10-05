@@ -1,6 +1,9 @@
 #include <iostream>
 #include <string>
 #include <iomanip>
+#include <vector>
+#include <fstream>
+
 
 using namespace std;
 
@@ -11,6 +14,15 @@ struct review
     review* next;
 
 };
+
+class Movie
+{
+    private:
+        
+
+    public:
+
+}
 
 // protos
 void addHead(review*& head, double rating, const string& comment);
