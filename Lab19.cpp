@@ -30,49 +30,24 @@ class Movie
         // constructor
         Movie (const string& t) :  title(t), head(nullptr) {}
 
-        ~Movie()
-        {
-            review* curr = head;
-            while (curr)
+        ~Movie() {
+            while (head)
             {
-                review* temp = curr;
-                curr = curr->next;
+                review* temp = head;
+                head = head->next;
                 delete temp; // free mem
             }// free mem
         }
 
         string getTitle() const {return title;}
 
-        void addHead(review*& head, double rating, const string& comment)
+        void addHead(double rating, const string& comment)
         {
             review* newNode = new review{rating, comment, head}; // create new head node
             head = newNode; // update head
         }
 
-        void addTail(review*& head, double rating, const string& comment)
-        {
-            review* newNode = new review{rating, comment, nullptr};
-
-
-            if (!head)
-            {
-                // check if empty linked list
-                head = newNode;
-            }
-            else
-            {
-                // walk to end and attach new node;
-                review* temp = head;
-                while (temp->next)
-                {
-                    temp = temp->next;
-                }
-                temp->next = newNode;
-            }
-        }
-
-        void displayReviews(review* head)
-        {
+        void displayReviews() const {
             int count = 0;
             double sum = 0;
 
@@ -124,11 +99,25 @@ int main()
         string title, comment;
         double rating;
 
+        stringstream vals(movie);
         
+        vals >> title >> rating;
+        getline(vals, comment);
 
 
+        Movie newM(title);
+        newM.addHead(rating, comment);
+        movies.push_back(newM);
     }
 
+    fin.close();
+
+    for (const auto& m: movies)
+    {
+        m.displayReviews();
+    }
+
+    return 0;
 
 }
 
